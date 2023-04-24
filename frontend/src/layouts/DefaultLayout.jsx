@@ -8,6 +8,10 @@ const DefaultLayout = () => {
     return <Navigate to="/login" />;
   }
 
+  const handleLogout = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="flex h-screen">
       <aside className="flex flex-col gap-1 bg-teal-800 p-4 text-slate-200">
@@ -27,11 +31,11 @@ const DefaultLayout = () => {
           <h1>Header</h1>
           <div className="flex items-center gap-3">
             <div className="capitalize">{user.name}</div>
-            <a
-              href="#"
+            <button
+              onClick={handleLogout}
               className="rounded bg-red-600 p-1 text-slate-200 duration-150 hover:bg-red-700">
               Logout
-            </a>
+            </button>
           </div>
         </header>
         <main className="h-screen w-full bg-gray-200 p-5">
