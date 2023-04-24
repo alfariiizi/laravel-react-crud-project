@@ -10,10 +10,12 @@ const StateContext = createContext({
 });
 
 const ContextProvider = ({ children }) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    name: "alfarizi",
+  });
 
-  const [token, _setToken] = useState(localStorage.getItem(tokenKey));
-  //   const [token, _setToken] = useState(123);    // for testing authenticated user
+  //   const [token, _setToken] = useState(localStorage.getItem(tokenKey));
+  const [token, _setToken] = useState(123); // for testing authenticated user
 
   const setToken = (token) => {
     _setToken(token);
