@@ -11,7 +11,6 @@ const GuestLayout = () => {
 
   return (
     <div>
-      <p>GuestLayout</p>
       <Outlet />
     </div>
   );
