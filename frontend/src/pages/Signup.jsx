@@ -1,15 +1,37 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
+import axiosClient from "../axios-client";
+import { useStateContext } from "../contexts/ContextProvider";
 
 const Signup = () => {
-  const [firstname, setFirstname] = useState("");
-  const [lastName, setLastname] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const firstnameRef = useRef();
+  const lastnameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const passwordConfRef = useRef();
 
-  const handleSubmit = (e) => {
+  const { setUser, setToken } = useStateContext();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const payload = {
+      firstname: firstnameRef.current.value,
+      lastname: lastnameRef.current.value,
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+      password_confirmation: passwordConfRef.current.value,
+    };
+
+    const result = await axiosClient.post("/signup", payload);
+    try {
+      setUser(result.data.user);
+      setToken(result.data.token);
+    } catch {
+      if (result.status === 422) {
+        console.log(result.data.errors);
+      }
+    }
   };
 
   return (
@@ -26,8 +48,7 @@ const Signup = () => {
             id="first_name"
             placeholder="First Name"
             required
-            value={firstname}
-            onChange={(e) => setFirstname(e.target.value)}
+            ref={firstnameRef}
             className="rounded border-2 p-2"
           />
           <input
@@ -36,8 +57,7 @@ const Signup = () => {
             id="last_name"
             placeholder="Last Name"
             required
-            value={lastName}
-            onChange={(e) => setLastname(e.target.value)}
+            ref={lastnameRef}
             className="rounded border-2 p-2"
           />
           <input
@@ -46,8 +66,7 @@ const Signup = () => {
             id="user_email"
             placeholder="Email"
             required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            ref={emailRef}
             className="rounded border-2 p-2"
           />
           <input
@@ -56,8 +75,7 @@ const Signup = () => {
             id="user_password"
             placeholder="Password"
             required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            ref={passwordRef}
             className="rounded border-2 p-2"
           />
           <input
@@ -66,8 +84,7 @@ const Signup = () => {
             id="confirm_user_password"
             placeholder="Password Confirmation"
             required
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            ref={passwordConfRef}
             className="rounded border-2 p-2"
           />
           <button
