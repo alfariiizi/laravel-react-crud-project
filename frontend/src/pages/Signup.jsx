@@ -4,8 +4,7 @@ import axiosClient from "../axios-client";
 import { useStateContext } from "../contexts/ContextProvider";
 
 const Signup = () => {
-  const firstnameRef = useRef();
-  const lastnameRef = useRef();
+  const nameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfRef = useRef();
@@ -16,8 +15,7 @@ const Signup = () => {
     e.preventDefault();
 
     const payload = {
-      firstname: firstnameRef.current.value,
-      lastname: lastnameRef.current.value,
+      name: nameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,
       password_confirmation: passwordConfRef.current.value,
@@ -44,20 +42,11 @@ const Signup = () => {
           className="flex flex-col gap-2 bg-white">
           <input
             type="text"
-            name="first_name"
-            id="first_name"
-            placeholder="First Name"
+            name="name"
+            id="name"
+            placeholder="Name"
             required
-            ref={firstnameRef}
-            className="rounded border-2 p-2"
-          />
-          <input
-            type="text"
-            name="last_name"
-            id="last_name"
-            placeholder="Last Name"
-            required
-            ref={lastnameRef}
+            ref={nameRef}
             className="rounded border-2 p-2"
           />
           <input
