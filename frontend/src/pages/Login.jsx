@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,8 +23,7 @@ const Login = () => {
             id="user_email"
             placeholder="Email"
             required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            ref={emailRef}
             className="rounded border-2 p-2"
           />
           <input
@@ -33,8 +32,7 @@ const Login = () => {
             id="user_password"
             placeholder="Password"
             required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            ref={passwordRef}
             className="rounded border-2 p-2"
           />
           <button
