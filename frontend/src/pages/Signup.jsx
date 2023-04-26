@@ -21,14 +21,22 @@ const Signup = () => {
       password_confirmation: passwordConfRef.current.value,
     };
 
-    const result = await axiosClient.post("/signup", payload);
+    console.log(payload);
+
     try {
+      const result = await axiosClient.post("/signup", payload);
       setUser(result.data.user);
       setToken(result.data.token);
-    } catch {
-      if (result.status === 422) {
-        console.log(result.data.errors);
-      }
+
+      console.log({
+        user: result.data.user,
+        token: result.data.token,
+      });
+    } catch (error) {
+      // if (result.status === 422) {
+      //   console.log(result.data.errors);
+      // }
+      console.error(error.response.data);
     }
   };
 
@@ -44,7 +52,7 @@ const Signup = () => {
             type="text"
             name="name"
             id="name"
-            placeholder="Name"
+            placeholder="Full Name"
             required
             ref={nameRef}
             className="rounded border-2 p-2"

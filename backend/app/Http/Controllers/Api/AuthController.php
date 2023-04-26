@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function login(LoginRequest $request)
+    public function signup(SignupRequest $request)
     {
         $data = $request->validated();
         $user = User::query()->create([
@@ -28,7 +28,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function signup(SignupRequest $request)
+    public function login(LoginRequest $request)
     {
         $credentials = $request->validated();
         if (!Auth::attempt($credentials)) {
