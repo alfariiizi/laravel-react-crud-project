@@ -94,8 +94,8 @@ const Signup = () => {
           />
           <button
             type="submit"
-            className="rounded bg-teal-700 p-2 text-slate-200 duration-150 hover:bg-teal-800">
-            Signup
+            className="cursor-pointer rounded bg-gradient-to-tr from-teal-700 to-purple-700 p-2 text-slate-200 duration-150 hover:bg-gradient-to-br hover:from-purple-800 hover:to-teal-800">
+            Login
           </button>
         </form>
         <div>
