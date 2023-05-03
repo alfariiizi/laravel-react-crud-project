@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import axiosClient from "../axios-client";
 import { useStateContext } from "../contexts/ContextProvider";
@@ -11,8 +11,12 @@ const Signup = () => {
 
   const { setUser, setToken } = useStateContext();
 
+  // For handling error message like password not same, etc.
+  const [errorMessages, setErrorMessages] = useState(null);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessages(null);
 
     const payload = {
       name: nameRef.current.value,
@@ -21,22 +25,17 @@ const Signup = () => {
       password_confirmation: passwordConfRef.current.value,
     };
 
-    console.log(payload);
-
     try {
       const result = await axiosClient.post("/signup", payload);
       setUser(result.data.user);
       setToken(result.data.token);
 
-      console.log({
-        user: result.data.user,
-        token: result.data.token,
-      });
+      // console.log({
+      //   user: result.data.user,
+      //   token: result.data.token,
+      // });
     } catch (error) {
-      // if (result.status === 422) {
-      //   console.log(result.data.errors);
-      // }
-      console.error(error.response.data);
+      setErrorMessages(error.response.data.errors.password);
     }
   };
 
@@ -44,6 +43,15 @@ const Signup = () => {
     <div className="flex h-screen items-center justify-center bg-gray-200">
       <div className="flex flex-col gap-5 rounded border-2 border-black bg-white p-8">
         <h1 className="text-center text-2xl">Signup for free</h1>
+        {errorMessages && (
+          <ul className="flex flex-col rounded-lg bg-red-600 p-2 text-slate-200">
+            {errorMessages.map((error, index) => (
+              <li key={index} className="">
+                {error}
+              </li>
+            ))}
+          </ul>
+        )}
         <form
           action=""
           onSubmit={handleSubmit}
