@@ -12,7 +12,10 @@ const DefaultLayout = () => {
   const handleLogout = async (e) => {
     e.preventDefault();
     try {
-      await axiosClient.post("/logout");
+      debugger;
+      // const result = await axiosClient.post("/logout");
+      localStorage.removeItem("ACCESS_TOKEN");
+      window.location.reload(); // Reload the current page
     } catch (error) {
       console.error(error.response);
     }
