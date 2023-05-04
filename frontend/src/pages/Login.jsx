@@ -39,7 +39,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center bg-gray-200">
+    <div className="flex h-screen items-center justify-center bg-gray-200 font-inter">
       <div className="flex flex-col gap-5 rounded border-2 border-black bg-white p-8">
         <h1 className="text-center text-2xl">Login into your account</h1>
         {errorMessage && (
